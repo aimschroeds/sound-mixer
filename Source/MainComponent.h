@@ -4,6 +4,7 @@
 #include "DJAudioPlayer.h"
 #include "DeckGUI.h"
 #include "PlaylistComponent.h"
+#include "Skin.h"
 
 //==============================================================================
 /*
@@ -13,6 +14,7 @@
 class MainComponent  : public juce::AudioAppComponent
 {
 public:
+
     //==============================================================================
     MainComponent();
     ~MainComponent() override;
@@ -34,7 +36,6 @@ private:
     
     bool playing;
     
-
     juce::AudioFormatManager formatManager;
     juce::AudioThumbnailCache thumbCache{100};
     
@@ -46,6 +47,9 @@ private:
     juce::MixerAudioSource mixerSource;
     
     PlaylistComponent playlistComponent;
+    
+    Skin skin;
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

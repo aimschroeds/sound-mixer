@@ -23,14 +23,36 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     // initialise any special settings that your component needs.
     
     // TO DO: Add labels: https://docs.juce.com/master/tutorial_slider_values.html
+    juce::Label volLabel;
+    addAndMakeVisible (volLabel);
+    volLabel.setText ("Volume", juce::dontSendNotification);
+    volLabel.attachToComponent (&volSlider, true);
+    volLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
+    volLabel.setJustificationType (juce::Justification::right);
     
+    
+    juce::Label posLabel;
+    addAndMakeVisible (posLabel);
+    posLabel.setText ("posume", juce::dontSendNotification);
+    posLabel.attachToComponent (&posSlider, true);
+    posLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
+    posLabel.setJustificationType (juce::Justification::right);
     // TO DO: Change look and feel of buttons and sliders: https://docs.juce.com/master/tutorial_look_and_feel_customisation.html
     
+    volSlider.setSliderStyle (juce::Slider::Rotary);
+    speedSlider.setSliderStyle (juce::Slider::Rotary);
+    posSlider.setSliderStyle (juce::Slider::ThreeValueHorizontal);
+    // TO DO: Trigger callback if min or max is changed; to start or end playback at according point
+    posSlider.setMinValue(0);
+    posSlider.setMaxValue(1.0);
+    
+    volSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    speedSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     // STRETCH TO DO: Animate something: https://docs.juce.com/master/tutorial_animation.html
     addAndMakeVisible(playButton);
     addAndMakeVisible(stopButton);
     addAndMakeVisible(loadButton);
-    getLookAndFeel().setColour (juce::Slider::thumbColourId, juce::Colours::red);
+//    getLookAndFeel().setColour (juce::Slider::thumbColourId, juce::Colours::red);
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(posSlider);
@@ -83,18 +105,28 @@ void DeckGUI::paint (juce::Graphics& g)
 
 void DeckGUI::resized()
 {
+    double rowH = getHeight() / 12;
+    
+    
+    
+//    dial2.setBounds (dialArea.reduced (border));
+//
+//    auto buttonHeight = 30;
+//
+//    button1.setBounds (area.removeFromTop (buttonHeight).reduced (border));
+//    button2.setBounds (area.removeFromTop (buttonHeight).reduced (border));
+    
     // This method is where you should set the bounds of any child
     // components that your component contains..
-    double rowH = getHeight() / 10;
-    playButton.setBounds(0, 0 , getWidth() / 2, rowH);
-    stopButton.setBounds(0, rowH , getWidth() / 2, rowH);
-    
-    volSlider.setBounds(0, rowH * 3 , getWidth() / 2, rowH);
-    speedSlider.setBounds(0, rowH * 4 , getWidth() / 2, rowH);
-    posSlider.setBounds(0, rowH * 5 , getWidth() / 2, rowH);
-    waveformDisplay.setBounds(0, rowH * 6 , getWidth() / 2, rowH * 2);
-    powerToggle.setBounds(0, rowH * 9, getWidth() / 2, rowH);
-    loadButton.setBounds(0, rowH * 8, getWidth() / 2, rowH);
+    waveformDisplay.setBounds(0, 0 , getWidth(), rowH * 3);
+    posSlider.setBounds(0, rowH * 3 , getWidth(), rowH);
+    playButton.setBounds(0, rowH * 4 , getWidth() / 2, rowH * 2);
+    stopButton.setBounds(getWidth() / 2, rowH * 4 , getWidth() /2, rowH * 2);
+
+    volSlider.setBounds(0, rowH * 6, getWidth() / 2, rowH * 4);
+    speedSlider.setBounds(getWidth() / 2, rowH * 6, getWidth() / 2, rowH * 4);
+
+    loadButton.setBounds(0, rowH * 10, getWidth(), rowH * 2);
 
 }
 

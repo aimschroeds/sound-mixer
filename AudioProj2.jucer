@@ -3,7 +3,15 @@
 <JUCERPROJECT id="dW8TlE" name="AudioProj2" projectType="guiapp" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="mtoc6p" name="AudioProj2">
+    <GROUP id="{1C1D2C80-C12E-0142-816E-B944563A7F41}" name="ImageFiles">
+      <FILE id="A0R2Dn" name="Group 1.png" compile="0" resource="1" file="../../../Downloads/Group 1.png"
+            xcodeResource="0"/>
+      <FILE id="zLAxNO" name="Group 1.svg" compile="0" resource="1" file="../../../Downloads/Group 1.svg"
+            xcodeResource="0"/>
+    </GROUP>
     <GROUP id="{FEAFC697-7BFB-8649-EC08-AEC02071E753}" name="Source">
+      <FILE id="YiZelt" name="Skin.cpp" compile="1" resource="0" file="Source/Skin.cpp"/>
+      <FILE id="fK1Vt6" name="Skin.h" compile="0" resource="0" file="Source/Skin.h"/>
       <FILE id="eeoXJX" name="PlaylistComponent.cpp" compile="1" resource="0"
             file="Source/PlaylistComponent.cpp"/>
       <FILE id="tObWp6" name="PlaylistComponent.h" compile="0" resource="0"

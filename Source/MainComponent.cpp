@@ -6,6 +6,7 @@ MainComponent::MainComponent()
     // Make sure you set the size of the component after
     // you add any child components.
     setSize (800, 600);
+    setLookAndFeel (&skin);
 
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired (juce::RuntimePermissions::recordAudio)
@@ -32,6 +33,7 @@ MainComponent::~MainComponent()
 {
     // This shuts down the audio device and clears the audio source.
     shutdownAudio();
+    setLookAndFeel (nullptr);
 }
 
 //==============================================================================
@@ -104,13 +106,16 @@ void MainComponent::releaseResources()
 void MainComponent::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+//    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    g.fillAll (juce::Colour (113, 227, 185));
 
     // You can add your drawing code here!
     
     g.setFont (20.0f);
 //    g.drawText ("Hello from Amsterdam", getLocalBounds(),
 //                juce::Justification::centred, true);
+    juce::Image headerLogo = juce::ImageCache::getFromMemory(BinaryData::Group_1_png, (size_t)BinaryData::Group_1_pngSize);
+    g.drawImageAt(headerLogo, getWidth() / 2 - 116, 0, 0);
 }
 
 void MainComponent::resized()
@@ -118,8 +123,10 @@ void MainComponent::resized()
     // This is called when the MainContentComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.
-    deckGUI1.setBounds(0, 0, getWidth() / 2, getHeight() / 2);
-    deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight() / 2);
-    playlistComponent.setBounds(0, getHeight() / 2, getWidth(), getHeight() / 2);
+    deckGUI1.setBounds(0, 94, getWidth() / 2, getHeight() / 2);
+    deckGUI2.setBounds(getWidth() / 2, 94, getWidth() / 2, getHeight() / 2);
+    playlistComponent.setBounds(0, getHeight() / 2 + 94, getWidth(), getHeight() / 2);
     
 }
+
+
