@@ -4,8 +4,11 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="mtoc6p" name="AudioProj2">
     <GROUP id="{1C1D2C80-C12E-0142-816E-B944563A7F41}" name="ImageFiles">
+      <FILE id="J4nVxL" name="stop.svg" compile="0" resource="1" file="../../../Downloads/stop.svg"/>
       <FILE id="A0R2Dn" name="Group 1.png" compile="0" resource="1" file="../../../Downloads/Group 1.png"
             xcodeResource="0"/>
+      <FILE id="fumZed" name="pause.svg" compile="0" resource="1" file="../../../Downloads/pause.svg"/>
+      <FILE id="tCtB9D" name="play.svg" compile="0" resource="1" file="../../../Downloads/play.svg"/>
       <FILE id="zLAxNO" name="Group 1.svg" compile="0" resource="1" file="../../../Downloads/Group 1.svg"
             xcodeResource="0"/>
     </GROUP>

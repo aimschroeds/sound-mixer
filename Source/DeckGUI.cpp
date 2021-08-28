@@ -7,6 +7,10 @@
     Credits
     Logo: Headphone by DinosoftLab from the Noun Project
     Logo: Headphones by Atif Arshad from the Noun Project
+    
+    play by Matthew Brinkley from the Noun Project
+    Stop by Matthew Brinkley from the Noun Project
+    pause by Matthew Brinkley from the Noun Project
   ==============================================================================
 */
 
@@ -39,8 +43,19 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     volSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     speedSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     // STRETCH TO DO: Animate something: https://docs.juce.com/master/tutorial_animation.html
-    addAndMakeVisible(playButton);
+    
+    auto stopIcon = juce::Drawable::createFromImageData(BinaryData::stop_svg, BinaryData::stop_svgSize);
+    auto playIcon = juce::Drawable::createFromImageData(BinaryData::play_svg, BinaryData::play_svgSize);
+    auto pauseIcon = juce::Drawable::createFromImageData(BinaryData::pause_svg, BinaryData::pause_svgSize);
+    
+    stopButton.setImages(stopIcon.get());
+    playButton.setImages(playIcon.get());
+    pauseButton.setImages(pauseIcon.get());
+    
     addAndMakeVisible(stopButton);
+    addAndMakeVisible(playButton);
+    addAndMakeVisible(pauseButton);
+    
     addAndMakeVisible(loadButton);
 //    getLookAndFeel().setColour (juce::Slider::thumbColourId, juce::Colours::red);
     addAndMakeVisible(volSlider);
@@ -52,13 +67,16 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     
     playButton.addListener(this);
     stopButton.addListener(this);
-    loadButton.addListener(this);
+    pauseButton.addListener(this);
+    loadButton.onClick = [this] { openFileChooser(); };
     volSlider.addListener(this);
     speedSlider.addListener(this);
     posSlider.addListener(this);
     
-    volSlider.setRange(0.0, 1.0);
-    speedSlider.setRange(0.0, 100.0);
+    volSlider.setRange(0.0, 5.0);
+    volSlider.setValue(1.0);
+    speedSlider.setRange(0.0, 2.0);
+    speedSlider.setValue(1.0);
     posSlider.setRange(0.0, 1.0);
     
     
@@ -114,7 +132,7 @@ void DeckGUI::paint (juce::Graphics& g)
 
 void DeckGUI::resized()
 {
-    double rowH = getHeight() / 16;
+    double rowH = getHeight() / 18;
     
     
     
@@ -127,15 +145,17 @@ void DeckGUI::resized()
     
     // This method is where you should set the bounds of any child
     // components that your component contains..
-    waveformDisplay.setBounds(0, 0, getWidth(), rowH * 3);
-    posSlider.setBounds(0, rowH * 4 , getWidth(), rowH);
-    playButton.setBounds(0, rowH * 6 , getWidth() / 2, rowH * 2);
-    stopButton.setBounds(getWidth() / 2, rowH * 6 , getWidth() /2, rowH * 2);
+    waveformDisplay.setBounds(0, 0, getWidth(), rowH * 5);
+    posSlider.setBounds(0, rowH * 6 , getWidth(), rowH);
+    playButton.setBounds(getWidth() * 0.2, rowH * 8 , getWidth() / 6, rowH * 3);
+    pauseButton.setBounds(getWidth() * 0.4, rowH * 8 , getWidth() / 6, rowH * 3);
+    stopButton.setBounds(getWidth() * 0.6, rowH * 8 , getWidth() / 6, rowH * 3);
+    
+    
+    volSlider.setBounds(10, rowH * 12, getWidth() / 2, rowH * 5);
+    speedSlider.setBounds(getWidth() / 2 - 10, rowH * 12, getWidth() / 2, rowH * 5);
 
-    volSlider.setBounds(0, rowH * 10, getWidth() / 2, rowH * 4);
-    speedSlider.setBounds(getWidth() / 2, rowH * 10, getWidth() / 2, rowH * 4);
-
-    loadButton.setBounds(0, rowH * 14, getWidth(), rowH * 2);
+    loadButton.setBounds(0, rowH * 17, getWidth(), rowH * 1);
 
 }
 
@@ -152,19 +172,27 @@ void DeckGUI::buttonClicked(juce::Button* button)
     {
         std::cout << "Stop button was clicked " << std::endl;
         player->stop();
+        player->setPositionRelative(0);
+    }
+    else if (button == &pauseButton)
+    {
+        std::cout << "Pause button was clicked " << std::endl;
+        player->stop();
         
     }
-    // TO DO: Distinguish stop vs pause buttons
-    if (button == &loadButton)
+}
+
+
+void DeckGUI::openFileChooser()
+{
+    juce::FileChooser chooser{"Select a file..."};
+    if (chooser.browseForFileToOpen())
     {
-        juce::FileChooser chooser{"Select a file..."};
-        if (chooser.browseForFileToOpen())
-        {
-            player->loadURL(juce::URL{chooser.getResult()});
-            waveformDisplay.loadURL(juce::URL{chooser.getResult()});
-        }
+        player->loadURL(juce::URL{chooser.getResult()});
+        waveformDisplay.loadURL(juce::URL{chooser.getResult()});
     }
 }
+
 
 void DeckGUI::sliderValueChanged(juce::Slider* slider)
 {

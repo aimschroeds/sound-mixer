@@ -18,5 +18,6 @@ Skin::Skin()
     setColour (juce::Slider::backgroundColourId, peach);
     setColour (juce::Slider::rotarySliderOutlineColourId, blue);
     setColour (juce::Label::textColourId, green);
-    
+    setColour (juce::TextButton::buttonColourId, green);
+    setColour (juce::TextButton::textColourOffId, juce::Colours::ghostwhite);
 }

@@ -5,7 +5,7 @@ MainComponent::MainComponent()
 {
     // Make sure you set the size of the component after
     // you add any child components.
-    setSize (800, 600);
+    setSize (1200, 800);
     setLookAndFeel (&skin);
 
     // Some platforms require permissions to open input channels so request that here
@@ -123,9 +123,9 @@ void MainComponent::resized()
     // This is called when the MainContentComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.
-    deckGUI1.setBounds(0, 94, getWidth() / 2, getHeight() / 2);
-    deckGUI2.setBounds(getWidth() / 2, 94, getWidth() / 2, getHeight() / 2);
-    playlistComponent.setBounds(0, getHeight() / 2 + 94, getWidth(), getHeight() / 2);
+    deckGUI1.setBounds(0, 94, getWidth() / 2, getHeight() * 0.7);
+    deckGUI2.setBounds(getWidth() / 2, 94, getWidth() / 2, getHeight() * 0.7);
+    playlistComponent.setBounds(0, getHeight() * 0.7 + 94, getWidth(), getHeight() * 0.3);
     
 }
 

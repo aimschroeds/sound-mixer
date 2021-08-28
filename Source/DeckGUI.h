@@ -47,8 +47,10 @@ public:
     
     
 private:
-    juce::TextButton playButton{"Play"};
-    juce::TextButton stopButton{"Stop"};
+    
+    juce::DrawableButton playButton{"Play", juce::DrawableButton::ButtonStyle::ImageOnButtonBackground};
+    juce::DrawableButton stopButton{"Stop", juce::DrawableButton::ButtonStyle::ImageOnButtonBackground};
+    juce::DrawableButton pauseButton{"Pause", juce::DrawableButton::ButtonStyle::ImageOnButtonBackground};
     juce::TextButton loadButton{"Load"};
     
     juce::Slider volSlider;
@@ -65,6 +67,7 @@ private:
     WaveformDisplay waveformDisplay;
     
     void instructPlayer(juce::Slider* slider);
+    void openFileChooser();
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeckGUI)
 };
