@@ -11,6 +11,7 @@
     play by Matthew Brinkley from the Noun Project
     Stop by Matthew Brinkley from the Noun Project
     pause by Matthew Brinkley from the Noun Project
+    Boom Box by DinosoftLab from the Noun Project
   ==============================================================================
 */
 
@@ -64,6 +65,7 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(powerToggle);
     
     addAndMakeVisible(waveformDisplay);
+    addAndMakeVisible(equalizer);
     
     playButton.addListener(this);
     stopButton.addListener(this);
@@ -83,7 +85,6 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible (volLabel);
     volLabel.setText ("Volume", juce::dontSendNotification);
     volLabel.attachToComponent (&volSlider, false);
-//    volLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
     volLabel.setJustificationType (juce::Justification::centredBottom);
     
     addAndMakeVisible (speedLabel);
@@ -95,7 +96,6 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible (posLabel);
     posLabel.setText ("Playback", juce::dontSendNotification);
     posLabel.attachToComponent (&posSlider, false);
-//    posLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
     posLabel.setJustificationType (juce::Justification::centredBottom);
     
     startTimer(100);
@@ -145,11 +145,12 @@ void DeckGUI::resized()
     
     // This method is where you should set the bounds of any child
     // components that your component contains..
-    waveformDisplay.setBounds(0, 0, getWidth(), rowH * 5);
-    posSlider.setBounds(0, rowH * 6 , getWidth(), rowH);
-    playButton.setBounds(getWidth() * 0.2, rowH * 8 , getWidth() / 6, rowH * 3);
-    pauseButton.setBounds(getWidth() * 0.4, rowH * 8 , getWidth() / 6, rowH * 3);
-    stopButton.setBounds(getWidth() * 0.6, rowH * 8 , getWidth() / 6, rowH * 3);
+    waveformDisplay.setBounds(0, 0, getWidth(), rowH * 4);
+    posSlider.setBounds(0, rowH * 5 , getWidth(), rowH);
+    equalizer.setBounds(getWidth() * 0.05, rowH * 6, getWidth() * 0.3, rowH * 5);
+    playButton.setBounds(getWidth() * 0.4, rowH * 7 , getWidth() / 6, rowH * 3);
+    pauseButton.setBounds(getWidth() * 0.6, rowH * 7 , getWidth() / 6, rowH * 3);
+    stopButton.setBounds(getWidth() * 0.8, rowH * 7 , getWidth() / 6, rowH * 3);
     
     
     volSlider.setBounds(10, rowH * 12, getWidth() / 2, rowH * 5);

@@ -29,7 +29,11 @@ class DJAudioPlayer : public juce::AudioSource {
         void setSpeed(double ratio);
         void setPosition(double posInSecs);
         void setPositionRelative(double pos);
-        
+    
+        void setBass(double gain);
+        void setMid(double gain);
+        void setTreble(double gain);
+    
         void start();
         void stop();
         
@@ -44,6 +48,15 @@ class DJAudioPlayer : public juce::AudioSource {
         std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
         
         juce::AudioTransportSource transportSource;
-        juce::ResamplingAudioSource resampleSource{&transportSource, false, 2};
+        juce::IIRFilterAudioSource bassSource{&transportSource, false};
+        juce::IIRFilterAudioSource trebleSource{&bassSource, false};
+        juce::IIRFilterAudioSource midSource{&trebleSource, false};
+    
+        juce::ResamplingAudioSource resampleSource{&midSource, false, 2};
         bool loaded = false;
+    
+        double sampleRate;
+        const int bassCutOff = 250;
+        const int midCutOff = 3000;
+        const int trebleCutOff = 8000;
 };

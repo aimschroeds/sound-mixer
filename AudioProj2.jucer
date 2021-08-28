@@ -7,12 +7,19 @@
       <FILE id="J4nVxL" name="stop.svg" compile="0" resource="1" file="../../../Downloads/stop.svg"/>
       <FILE id="A0R2Dn" name="Group 1.png" compile="0" resource="1" file="../../../Downloads/Group 1.png"
             xcodeResource="0"/>
+      <FILE id="AAc7cS" name="boom2.png" compile="0" resource="1" file="../../../Downloads/boom2.png"/>
+      <FILE id="oRud6H" name="boom3.png" compile="0" resource="1" file="../../../Downloads/boom3.png"/>
+      <FILE id="HyMuzY" name="boom.png" compile="0" resource="1" file="../../../Downloads/boom.png"/>
       <FILE id="fumZed" name="pause.svg" compile="0" resource="1" file="../../../Downloads/pause.svg"/>
+      <FILE id="SkDl3t" name="boombox.png" compile="0" resource="1" file="../../../Downloads/boombox.png"/>
+      <FILE id="o6nA2c" name="boombox.svg" compile="0" resource="1" file="../../../Downloads/boombox.svg"/>
       <FILE id="tCtB9D" name="play.svg" compile="0" resource="1" file="../../../Downloads/play.svg"/>
       <FILE id="zLAxNO" name="Group 1.svg" compile="0" resource="1" file="../../../Downloads/Group 1.svg"
             xcodeResource="0"/>
     </GROUP>
     <GROUP id="{FEAFC697-7BFB-8649-EC08-AEC02071E753}" name="Source">
+      <FILE id="vVmzT4" name="Equalizer.cpp" compile="1" resource="0" file="Source/Equalizer.cpp"/>
+      <FILE id="rw4fBv" name="Equalizer.h" compile="0" resource="0" file="Source/Equalizer.h"/>
       <FILE id="YiZelt" name="Skin.cpp" compile="1" resource="0" file="Source/Skin.cpp"/>
       <FILE id="fK1Vt6" name="Skin.h" compile="0" resource="0" file="Source/Skin.h"/>
       <FILE id="eeoXJX" name="PlaylistComponent.cpp" compile="1" resource="0"

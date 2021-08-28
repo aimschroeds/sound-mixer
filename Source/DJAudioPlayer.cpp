@@ -4,6 +4,8 @@
     DJAudioPlayer.cpp
     Created: 6 Aug 2021 9:29:35pm
     Author:  Aimee Schroeder
+    Credits: https://electronicmusic.fandom.com/wiki/Filter
+ https://www.teachmeaudio.com/mixing/techniques/audio-spectrum
 
   ==============================================================================
 */
@@ -21,9 +23,19 @@ DJAudioPlayer::~DJAudioPlayer()
 }
 
 
-void DJAudioPlayer::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+void DJAudioPlayer::prepareToPlay (int samplesPerBlockExpected, double _sampleRate)
 {
+    sampleRate = _sampleRate;
     transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    
+    
+    bassSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    trebleSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    midSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    
+    bassSource.setCoefficients(juce::IIRCoefficients::makeLowShelf(sampleRate, bassCutOff, 1, 1));
+    midSource.setCoefficients(juce::IIRCoefficients::makePeakFilter(sampleRate, midCutOff, 1, 1));
+    trebleSource.setCoefficients(juce::IIRCoefficients::makeHighShelf(sampleRate, trebleCutOff, 1, 1));
     resampleSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
 }
 
@@ -42,6 +54,9 @@ void DJAudioPlayer::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
 void DJAudioPlayer::releaseResources()
 {
     transportSource.releaseResources();
+    bassSource.releaseResources();
+    trebleSource.releaseResources();
+    midSource.releaseResources();
     resampleSource.releaseResources();
 }
 
@@ -62,6 +77,8 @@ void DJAudioPlayer::loadURL(juce::URL audioURL)
     std::cout << "Something went wrong loading the file " << std::endl;
     }
 }
+
+
 void DJAudioPlayer::setGain(double gain)
 {
     if (gain < 0.0 || gain > 5.0)
@@ -74,6 +91,8 @@ void DJAudioPlayer::setGain(double gain)
     }
     
 }
+
+
 void DJAudioPlayer::setSpeed(double ratio)
 {
     if (ratio < 0 || ratio > 2.0)
@@ -87,10 +106,50 @@ void DJAudioPlayer::setSpeed(double ratio)
 }
 
 
+void DJAudioPlayer::setBass(double gain)
+{
+    if (gain < 0.0 || gain > 2.0)
+    {
+        std::cout << "DJAudioPlayer::setBass gain should be between 0 and 2" << std::endl;
+    }
+    else
+    {
+        bassSource.setCoefficients(juce::IIRCoefficients::makeLowShelf(sampleRate, bassCutOff, 1, gain));
+    }
+}
+
+
+void DJAudioPlayer::setMid(double gain)
+{
+    if (gain < 0.0 || gain > 2.0)
+    {
+        std::cout << "DJAudioPlayer::setMid gain should be between 0 and 2" << std::endl;
+    }
+    else
+    {
+        midSource.setCoefficients(juce::IIRCoefficients::makePeakFilter(sampleRate, midCutOff, 1, gain));
+    }
+}
+
+
+void DJAudioPlayer::setTreble(double gain)
+{
+    if (gain < 0.0 || gain > 2.0)
+    {
+        std::cout << "DJAudioPlayer::setTreble gain should be between 0 and 2" << std::endl;
+    }
+    else
+    {
+        trebleSource.setCoefficients(juce::IIRCoefficients::makeHighShelf(sampleRate, trebleCutOff, 1, gain));
+    }
+}
+
+
 void DJAudioPlayer::setPosition(double posInSecs)
 {
     transportSource.setPosition(posInSecs);
 }
+
 
 void DJAudioPlayer::setPositionRelative(double pos)
 {

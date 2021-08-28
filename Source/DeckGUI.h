@@ -14,6 +14,7 @@
 #include "DJAudioPlayer.h"
 #include "WaveformDisplay.h"
 #include "Skin.h"
+#include "Equalizer.h"
 
 //==============================================================================
 /*
@@ -56,7 +57,7 @@ private:
     juce::Slider volSlider;
     juce::Slider speedSlider;
     juce::Slider posSlider;
-    juce::ToggleButton powerToggle{"On"};
+    juce::ToggleButton powerToggle{"On"}; // TO DO: Remove this guy?
     
     juce::Label volLabel;
     juce::Label posLabel;
@@ -65,6 +66,8 @@ private:
     DJAudioPlayer* player;
     
     WaveformDisplay waveformDisplay;
+    
+    Equalizer equalizer{player};
     
     void instructPlayer(juce::Slider* slider);
     void openFileChooser();
