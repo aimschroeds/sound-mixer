@@ -22,21 +22,9 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
     
-    // TO DO: Add labels: https://docs.juce.com/master/tutorial_slider_values.html
-    juce::Label volLabel;
-    addAndMakeVisible (volLabel);
-    volLabel.setText ("Volume", juce::dontSendNotification);
-    volLabel.attachToComponent (&volSlider, true);
-    volLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
-    volLabel.setJustificationType (juce::Justification::right);
+    // TO DO: Fix labels: https://docs.juce.com/master/tutorial_slider_values.html
     
     
-    juce::Label posLabel;
-    addAndMakeVisible (posLabel);
-    posLabel.setText ("posume", juce::dontSendNotification);
-    posLabel.attachToComponent (&posSlider, true);
-    posLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
-    posLabel.setJustificationType (juce::Justification::right);
     // TO DO: Change look and feel of buttons and sliders: https://docs.juce.com/master/tutorial_look_and_feel_customisation.html
     
     volSlider.setSliderStyle (juce::Slider::Rotary);
@@ -70,6 +58,20 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     volSlider.setRange(0.0, 1.0);
     speedSlider.setRange(0.0, 100.0);
     posSlider.setRange(0.0, 1.0);
+    
+    addAndMakeVisible (volLabel);
+    volLabel.setText ("Volume", juce::dontSendNotification);
+    volLabel.attachToComponent (&volSlider, false);
+//    volLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
+    volLabel.setJustificationType (juce::Justification::centredBottom);
+    
+    
+    
+    addAndMakeVisible (posLabel);
+    posLabel.setText ("Playback", juce::dontSendNotification);
+    posLabel.attachToComponent (&posSlider, false);
+//    posLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
+    posLabel.setJustificationType (juce::Justification::centredBottom);
     
     startTimer(100);
     
@@ -105,7 +107,7 @@ void DeckGUI::paint (juce::Graphics& g)
 
 void DeckGUI::resized()
 {
-    double rowH = getHeight() / 12;
+    double rowH = getHeight() / 16;
     
     
     
@@ -119,14 +121,14 @@ void DeckGUI::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
     waveformDisplay.setBounds(0, 0 , getWidth(), rowH * 3);
-    posSlider.setBounds(0, rowH * 3 , getWidth(), rowH);
-    playButton.setBounds(0, rowH * 4 , getWidth() / 2, rowH * 2);
-    stopButton.setBounds(getWidth() / 2, rowH * 4 , getWidth() /2, rowH * 2);
+    posSlider.setBounds(0, rowH * 4 , getWidth(), rowH);
+    playButton.setBounds(0, rowH * 6 , getWidth() / 2, rowH * 2);
+    stopButton.setBounds(getWidth() / 2, rowH * 6 , getWidth() /2, rowH * 2);
 
-    volSlider.setBounds(0, rowH * 6, getWidth() / 2, rowH * 4);
-    speedSlider.setBounds(getWidth() / 2, rowH * 6, getWidth() / 2, rowH * 4);
+    volSlider.setBounds(0, rowH * 10, getWidth() / 2, rowH * 4);
+    speedSlider.setBounds(getWidth() / 2, rowH * 10, getWidth() / 2, rowH * 4);
 
-    loadButton.setBounds(0, rowH * 10, getWidth(), rowH * 2);
+    loadButton.setBounds(0, rowH * 14, getWidth(), rowH * 2);
 
 }
 

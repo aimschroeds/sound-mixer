@@ -56,6 +56,9 @@ private:
     juce::Slider posSlider;
     juce::ToggleButton powerToggle{"On"};
     
+    juce::Label volLabel;
+    juce::Label posLabel;
+    
     DJAudioPlayer* player;
     
     WaveformDisplay waveformDisplay;
