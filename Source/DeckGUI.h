@@ -64,5 +64,7 @@ private:
     
     WaveformDisplay waveformDisplay;
     
+    void instructPlayer(juce::Slider* slider);
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeckGUI)
 };

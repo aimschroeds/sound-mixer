@@ -183,6 +183,18 @@ void DeckGUI::sliderValueChanged(juce::Slider* slider)
 
     if (slider == &posSlider)
     {
+        if (slider->getMinValue() > slider->getValue())
+        {
+            std::cout << "min " <<std::endl;
+            slider->setValue(slider->getMinValue());
+            
+        }
+        else if (slider->getMaxValue() < slider->getValue())
+        {
+            std::cout << "max " <<std::endl;
+            slider->setValue(slider->getMaxValue());
+            
+        }
         player->setPositionRelative(slider->getValue());
     }
 
@@ -212,7 +224,27 @@ void DeckGUI::timerCallback()
     waveformDisplay.setPositionRelative(player->getPositionRelative());
     if (player->readyToPlay())
     {
+        instructPlayer(&posSlider);
         posSlider.setValue(player->getPositionRelative());
+    }
+    
+}
+
+void DeckGUI::instructPlayer(juce::Slider* slider)
+{
+    if (slider->getMinValue() > player->getPositionRelative())
+    {
+        std::cout << "min " <<std::endl;
+        slider->setValue(slider->getMinValue());
+        player->setPositionRelative(slider->getMinValue());
+        
+    }
+    else if (slider->getMaxValue() < player->getPositionRelative())
+    {
+        std::cout << "max " <<std::endl;
+        slider->setValue(slider->getMaxValue());
+        player->setPositionRelative(slider->getMaxValue());
+        player->stop();
     }
     
 }

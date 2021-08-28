@@ -46,5 +46,4 @@ class DJAudioPlayer : public juce::AudioSource {
         juce::AudioTransportSource transportSource;
         juce::ResamplingAudioSource resampleSource{&transportSource, false, 2};
         bool loaded = false;
-        
 };

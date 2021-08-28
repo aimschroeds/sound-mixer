@@ -42,7 +42,7 @@ void WaveformDisplay::paint (juce::Graphics& g)
 //    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
     auto withMargin = getLocalBounds().reduced(8, 0);
     g.setColour (pink);
-    std::cout << "width audioThumbnail" << getWidth() << std::endl;
+    
     if(fileLoaded)
     {
         audioThumb.drawChannel(g,
