@@ -58,6 +58,7 @@ private:
     
     juce::Label volLabel;
     juce::Label posLabel;
+    juce::Label speedLabel;
     
     DJAudioPlayer* player;
     

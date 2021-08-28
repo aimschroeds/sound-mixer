@@ -38,22 +38,21 @@ void WaveformDisplay::paint (juce::Graphics& g)
 
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
 
-    g.setColour (juce::Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (juce::Colours::orange);
-    
-    
+//    g.setColour (green);
+//    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+    auto withMargin = getLocalBounds().reduced(8, 0);
+    g.setColour (pink);
+    std::cout << "width audioThumbnail" << getWidth() << std::endl;
     if(fileLoaded)
     {
         audioThumb.drawChannel(g,
-                          getLocalBounds(),
+                          withMargin,
                           0,
                           audioThumb.getTotalLength(),
                           0,
                           1);
-        g.setColour(juce::Colours::lightgreen);
-        g.drawRect(position * getWidth(), 0, 0.025 * getWidth(), getHeight());
+        g.setColour(blue);
+        g.drawRect(4 + position * withMargin.getWidth(), 0, 0.025 * withMargin.getWidth(), getHeight(), 2);
     }
     else
     {

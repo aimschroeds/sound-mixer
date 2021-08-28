@@ -4,8 +4,9 @@
     DeckGUI.cpp
     Created: 6 Aug 2021 10:23:14pm
     Author:  Aimee Schroeder
-    Headphone by DinosoftLab from the Noun Project
-    Headphones by Atif Arshad from the Noun Project
+    Credits
+    Logo: Headphone by DinosoftLab from the Noun Project
+    Logo: Headphones by Atif Arshad from the Noun Project
   ==============================================================================
 */
 
@@ -34,6 +35,7 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     posSlider.setMinValue(0);
     posSlider.setMaxValue(1.0);
     
+    posSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     volSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     speedSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     // STRETCH TO DO: Animate something: https://docs.juce.com/master/tutorial_animation.html
@@ -59,12 +61,17 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     speedSlider.setRange(0.0, 100.0);
     posSlider.setRange(0.0, 1.0);
     
+    
     addAndMakeVisible (volLabel);
     volLabel.setText ("Volume", juce::dontSendNotification);
     volLabel.attachToComponent (&volSlider, false);
 //    volLabel.setColour (juce::Label::textColourId, juce::Colours::orange);
     volLabel.setJustificationType (juce::Justification::centredBottom);
     
+    addAndMakeVisible (speedLabel);
+    speedLabel.setText ("Speed", juce::dontSendNotification);
+    speedLabel.attachToComponent (&speedSlider, false);
+    speedLabel.setJustificationType (juce::Justification::centredBottom);
     
     
     addAndMakeVisible (posLabel);
@@ -120,7 +127,7 @@ void DeckGUI::resized()
     
     // This method is where you should set the bounds of any child
     // components that your component contains..
-    waveformDisplay.setBounds(0, 0 , getWidth(), rowH * 3);
+    waveformDisplay.setBounds(0, 0, getWidth(), rowH * 3);
     posSlider.setBounds(0, rowH * 4 , getWidth(), rowH);
     playButton.setBounds(0, rowH * 6 , getWidth() / 2, rowH * 2);
     stopButton.setBounds(getWidth() / 2, rowH * 6 , getWidth() /2, rowH * 2);
@@ -203,4 +210,9 @@ void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y)
 void DeckGUI::timerCallback()
 {
     waveformDisplay.setPositionRelative(player->getPositionRelative());
+    if (player->readyToPlay())
+    {
+        posSlider.setValue(player->getPositionRelative());
+    }
+    
 }

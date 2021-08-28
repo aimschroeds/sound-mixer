@@ -55,7 +55,7 @@ void DJAudioPlayer::loadURL(juce::URL audioURL)
         std::unique_ptr<juce::AudioFormatReaderSource> newSource( new juce::AudioFormatReaderSource(reader, true));
         transportSource.setSource(newSource.get(), 0 , nullptr, reader->sampleRate);
         readerSource.reset(newSource.release());
-        
+        loaded = true;
     }
     else
     {
@@ -117,4 +117,10 @@ void DJAudioPlayer::stop()
 double DJAudioPlayer::getPositionRelative()
 {
     return transportSource.getCurrentPosition() / transportSource.getLengthInSeconds();
+}
+
+
+bool DJAudioPlayer::readyToPlay()
+{
+    return loaded;
 }

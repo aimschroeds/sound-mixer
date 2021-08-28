@@ -37,6 +37,12 @@ private:
     bool fileLoaded;
     double position;
     
+    juce::Colour green = juce::Colour (113, 227, 185);
+    juce::Colour black = juce::Colour (0, 0, 0);
+    juce::Colour blue = juce::Colour (163, 223, 230);
+    juce::Colour peach = juce::Colour (250, 172, 138);
+    juce::Colour pink = juce::Colour (250, 170, 165);
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformDisplay)
 };

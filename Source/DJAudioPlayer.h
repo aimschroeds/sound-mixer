@@ -35,7 +35,9 @@ class DJAudioPlayer : public juce::AudioSource {
         
         /** Get the relative position of the playhead */
         double getPositionRelative();
-    
+        
+        bool readyToPlay();
+        
     
     private:
         juce::AudioFormatManager& formatManager;
@@ -43,4 +45,6 @@ class DJAudioPlayer : public juce::AudioSource {
         
         juce::AudioTransportSource transportSource;
         juce::ResamplingAudioSource resampleSource{&transportSource, false, 2};
+        bool loaded = false;
+        
 };
