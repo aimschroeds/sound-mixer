@@ -18,6 +18,8 @@
             xcodeResource="0"/>
     </GROUP>
     <GROUP id="{FEAFC697-7BFB-8649-EC08-AEC02071E753}" name="Source">
+      <FILE id="FvfzLv" name="Track.cpp" compile="1" resource="0" file="Source/Track.cpp"/>
+      <FILE id="M0mgso" name="Track.h" compile="0" resource="0" file="Source/Track.h"/>
       <FILE id="vVmzT4" name="Equalizer.cpp" compile="1" resource="0" file="Source/Equalizer.cpp"/>
       <FILE id="rw4fBv" name="Equalizer.h" compile="0" resource="0" file="Source/Equalizer.h"/>
       <FILE id="YiZelt" name="Skin.cpp" compile="1" resource="0" file="Source/Skin.cpp"/>

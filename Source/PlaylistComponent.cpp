@@ -17,13 +17,14 @@ PlaylistComponent::PlaylistComponent()
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
     
-    trackTitles.push_back("Track 1");
-    trackTitles.push_back("Track 2");
-    trackTitles.push_back("Track 3");
-    trackTitles.push_back("Track 4");
-    trackTitles.push_back("Track 5");
+//    trackTitles.push_back("Track 1");
+//    trackTitles.push_back("Track 2");
+//    trackTitles.push_back("Track 3");
+//    trackTitles.push_back("Track 4");
+//    trackTitles.push_back("Track 5");
     tableComponent.getHeader().addColumn("Track title", 1, 400);
-    tableComponent.getHeader().addColumn("", 2, 200);
+    tableComponent.getHeader().addColumn("Duration", 2, 200);
+    tableComponent.getHeader().addColumn("", 3, 200);
     
     
     tableComponent.setModel(this);
@@ -64,7 +65,7 @@ void PlaylistComponent::resized()
 
 int PlaylistComponent::getNumRows()
 {
-    return trackTitles.size();
+    return tracks.size();
 }
 
 void PlaylistComponent::paintRowBackground (juce::Graphics & g, int rowNumber, int width, int height, bool rowIsSelected)
@@ -81,7 +82,19 @@ void PlaylistComponent::paintRowBackground (juce::Graphics & g, int rowNumber, i
 
 void PlaylistComponent::paintCell (juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    g.drawText(trackTitles[rowNumber], 2, 0, width - 4, height, juce::Justification::centredLeft);
+    if (auto *rowElement = tracks[rowNumber])
+    {
+        if (columnId == 1)
+        {
+            g.drawText(rowElement->filename, 2, 0, width - 4, height, juce::Justification::centredLeft);
+        }
+        else if (columnId == 2)
+        {
+            g.drawText(rowElement->duration, 2, 0, width - 4, height, juce::Justification::centredLeft);
+        }
+        
+    }
+    
 }
 
 juce::Component* PlaylistComponent::refreshComponentForCell (int rowNumber,
@@ -89,7 +102,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell (int rowNumber,
                                     bool isRowSelected,
                                     juce::Component *existingComponentToUpdate)
 {
-    if (columnId == 2)
+    if (columnId == 3)
     {
         if(existingComponentToUpdate == nullptr)
         {
@@ -108,5 +121,39 @@ juce::Component* PlaylistComponent::refreshComponentForCell (int rowNumber,
 void PlaylistComponent::buttonClicked(juce::Button* button)
 {
     int id = std::stoi(button->getComponentID().toStdString());
-    std::cout << "PlaylistComponent::buttonClicked: " << trackTitles[id] << std::endl;
+    std::cout << "PlaylistComponent::buttonClicked: " << tracks[id]->filename << std::endl;
 }
+
+
+void PlaylistComponent::openFileChooser()
+{
+    juce::FileChooser chooser{"Select a file..."};
+    if (chooser.browseForFileToOpen())
+    {
+        tracks.push_back(new Track(juce::URL{chooser.getResult()}));
+        tableComponent.updateContent(); 
+//        player->loadURL(juce::URL{chooser.getResult()});
+//        waveformDisplay.loadURL(juce::URL{chooser.getResult()});
+    }
+}
+
+bool PlaylistComponent::isInterestedInFileDrag(const juce::StringArray &files)
+{
+    std::cout << "PlaylistComponent::isInterestedInFileDrag" << std::endl;
+    return true;
+}
+
+
+void PlaylistComponent::filesDropped (const juce::StringArray &files, int x, int y)
+{
+//    TO DO check if file is appropriate
+    std::cout << "PlaylistComponent::filesDropped" << std::endl;
+    for (juce::String filename : files)
+    {
+        
+        tracks.push_back(new Track(juce::URL{juce::File{filename}}));
+        tableComponent.updateContent();
+//        player->loadURL(juce::URL{juce::File{files[0]}});
+    }
+}
+

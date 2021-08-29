@@ -58,7 +58,6 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(pauseButton);
     
     addAndMakeVisible(loadButton);
-//    getLookAndFeel().setColour (juce::Slider::thumbColourId, juce::Colours::red);
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(posSlider);
@@ -70,7 +69,9 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     playButton.addListener(this);
     stopButton.addListener(this);
     pauseButton.addListener(this);
+    
     loadButton.onClick = [this] { openFileChooser(); };
+    
     volSlider.addListener(this);
     speedSlider.addListener(this);
     posSlider.addListener(this);
