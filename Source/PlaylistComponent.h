@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include "Track.h"
+#include "SearchComponent.h"
 
 //==============================================================================
 /*
@@ -21,7 +22,8 @@
 class PlaylistComponent  : public juce::Component,
                         public juce::TableListBoxModel,
                         public juce::Button::Listener,
-                        public juce::FileDragAndDropTarget
+                        public juce::FileDragAndDropTarget,
+                        public::juce::ChangeListener, public::juce::ChangeBroadcaster
 {
 public:
     PlaylistComponent();
@@ -43,10 +45,12 @@ public:
     bool isInterestedInFileDrag(const juce::StringArray &files) override;
     void filesDropped (const juce::StringArray &files, int x, int y) override;
     
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
+    
 private:
     juce::TableListBox tableComponent;
     std::vector<std::string> trackTitles;
-    
+    SearchComponent search;
     std::vector<Track*> tracks;
     void openFileChooser();
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlaylistComponent)

@@ -23,7 +23,7 @@ MainComponent::MainComponent()
     
     addAndMakeVisible(deckGUI1);
     addAndMakeVisible(deckGUI2);
-    addAndMakeVisible(search);
+    
     addAndMakeVisible(playlistComponent);
     
     formatManager.registerBasicFormats();
@@ -126,7 +126,7 @@ void MainComponent::resized()
     // update their positions.
     deckGUI1.setBounds(0, 94, getWidth() / 2, getHeight() * 0.7 - 94);
     deckGUI2.setBounds(getWidth() / 2, 94, getWidth() / 2, getHeight() * 0.7 - 94);
-    search.setBounds(0, getHeight() * 0.7, getWidth(), 20);
+    
     playlistComponent.setBounds(0, getHeight() * 0.7 + 20, getWidth(), getHeight() * 0.3);
     
 }

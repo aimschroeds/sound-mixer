@@ -10,6 +10,7 @@
 
 
 #include "PlaylistComponent.h"
+#include "SearchComponent.h"
 
 //==============================================================================
 PlaylistComponent::PlaylistComponent()
@@ -29,7 +30,10 @@ PlaylistComponent::PlaylistComponent()
     
     tableComponent.setModel(this);
     
+    addAndMakeVisible(search);
     addAndMakeVisible(tableComponent);
+    
+    search.addChangeListener(this);
 }
 
 PlaylistComponent::~PlaylistComponent()
@@ -55,7 +59,8 @@ void PlaylistComponent::resized()
 {
     // This method is where you should set the bounds of any child
     // components that your component contains..
-    tableComponent.setBounds(0, 0 , getWidth(), getHeight());
+    search.setBounds(0, 0, getWidth(), 20);
+    tableComponent.setBounds(0, 20 , getWidth(), getHeight() - 20);
 }
 
 int PlaylistComponent::getNumRows()
@@ -153,3 +158,8 @@ void PlaylistComponent::filesDropped (const juce::StringArray &files, int x, int
     }
 }
 
+
+void PlaylistComponent::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    std::cout << "laylistComponent::changeListenerCallback Something trig: " << std::endl;
+}

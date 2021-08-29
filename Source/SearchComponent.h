@@ -15,7 +15,9 @@
 //==============================================================================
 /*
 */
-class SearchComponent  : public juce::Component
+class SearchComponent  : public juce::Component,
+                        public juce::TextEditor::Listener,
+                        public::juce::ChangeBroadcaster
 {
 public:
     SearchComponent();
@@ -23,6 +25,7 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    void textEditorTextChanged(juce::TextEditor &editor) override;
 
 private:
     juce::TextEditor input{"Search"};

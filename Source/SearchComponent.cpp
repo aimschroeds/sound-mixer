@@ -19,10 +19,12 @@ SearchComponent::SearchComponent()
     
     addAndMakeVisible(input);
     input.setTextToShowWhenEmpty("Search", juce::Colour (0, 0, 0));
+    input.addListener(this);
 }
 
 SearchComponent::~SearchComponent()
 {
+    input.removeListener(this);
     deleteAllChildren();
 }
 
@@ -52,3 +54,12 @@ void SearchComponent::resized()
     // components that your component contains..
     input.setBounds (0.05 * getHeight(), 0, 300, getHeight() * 0.9);
 }
+
+
+void SearchComponent::textEditorTextChanged(juce::TextEditor &editor)
+{
+    std::cout << "SearchComponent::textEditorTextChanged - " << input.getText() << std::endl;
+    sendChangeMessage();
+}
+
+
