@@ -22,9 +22,9 @@ PlaylistComponent::PlaylistComponent()
 //    trackTitles.push_back("Track 3");
 //    trackTitles.push_back("Track 4");
 //    trackTitles.push_back("Track 5");
-    tableComponent.getHeader().addColumn("Track title", 1, 400);
-    tableComponent.getHeader().addColumn("Duration", 2, 200);
-    tableComponent.getHeader().addColumn("", 3, 200);
+    tableComponent.getHeader().addColumn("Track title", 1, 600);
+    tableComponent.getHeader().addColumn("Duration", 2, 300);
+    tableComponent.getHeader().addColumn("", 3, 300);
     
     
     tableComponent.setModel(this);
@@ -49,11 +49,6 @@ void PlaylistComponent::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::grey);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (juce::Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("PlaylistComponent", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
 }
 
 void PlaylistComponent::resized()
@@ -82,6 +77,7 @@ void PlaylistComponent::paintRowBackground (juce::Graphics & g, int rowNumber, i
 
 void PlaylistComponent::paintCell (juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
+//    from: https://docs.juce.com/master/tutorial_table_list_box.html
     if (auto *rowElement = tracks[rowNumber])
     {
         if (columnId == 1)

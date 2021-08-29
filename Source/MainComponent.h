@@ -5,6 +5,7 @@
 #include "DeckGUI.h"
 #include "PlaylistComponent.h"
 #include "Skin.h"
+#include "SearchComponent.h"
 
 //==============================================================================
 /*
@@ -49,7 +50,7 @@ private:
     PlaylistComponent playlistComponent;
     
     Skin skin;
-    
+    SearchComponent search;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

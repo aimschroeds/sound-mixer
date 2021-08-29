@@ -20,4 +20,8 @@ Skin::Skin()
     setColour (juce::Label::textColourId, green);
     setColour (juce::TextButton::buttonColourId, green);
     setColour (juce::TextButton::textColourOffId, juce::Colours::ghostwhite);
+    setColour (juce::TextEditor::backgroundColourId, juce::Colours::ghostwhite);
+    setColour (juce::TextEditor::textColourId, black);
+    setColour (juce::TextEditor::focusedOutlineColourId, blue);
+    setColour (juce::TextEditor::outlineColourId, peach);
 }
