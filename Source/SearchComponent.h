@@ -26,6 +26,8 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     void textEditorTextChanged(juce::TextEditor &editor) override;
+    
+    juce::String getKeyword();
 
 private:
     juce::TextEditor input{"Search"};

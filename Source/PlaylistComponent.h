@@ -49,9 +49,11 @@ public:
     
 private:
     juce::TableListBox tableComponent;
-    std::vector<std::string> trackTitles;
     SearchComponent search;
     std::vector<Track*> tracks;
+    std::vector<Track*> searchResults;
+    void searchTracks(juce::String keyword);
     void openFileChooser();
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlaylistComponent)
 };

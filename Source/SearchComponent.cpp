@@ -63,3 +63,7 @@ void SearchComponent::textEditorTextChanged(juce::TextEditor &editor)
 }
 
 
+juce::String SearchComponent::getKeyword()
+{
+    return input.getText();
+}

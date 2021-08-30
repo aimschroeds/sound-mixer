@@ -65,7 +65,14 @@ void PlaylistComponent::resized()
 
 int PlaylistComponent::getNumRows()
 {
-    return tracks.size();
+    if (searchResults.empty())
+    {
+        return tracks.size();
+    }
+    else
+    {
+        return searchResults.size();
+    }
 }
 
 void PlaylistComponent::paintRowBackground (juce::Graphics & g, int rowNumber, int width, int height, bool rowIsSelected)
@@ -82,19 +89,38 @@ void PlaylistComponent::paintRowBackground (juce::Graphics & g, int rowNumber, i
 
 void PlaylistComponent::paintCell (juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-//    from: https://docs.juce.com/master/tutorial_table_list_box.html
-    if (auto *rowElement = tracks[rowNumber])
+    if (!searchResults.empty())
     {
-        if (columnId == 1)
+        if (auto *rowElement = searchResults[rowNumber])
         {
-            g.drawText(rowElement->filename, 2, 0, width - 4, height, juce::Justification::centredLeft);
+            if (columnId == 1)
+            {
+                g.drawText(rowElement->filename, 2, 0, width - 4, height, juce::Justification::centredLeft);
+            }
+            else if (columnId == 2)
+            {
+                g.drawText(rowElement->duration, 2, 0, width - 4, height, juce::Justification::centredLeft);
+            }
+            
         }
-        else if (columnId == 2)
-        {
-            g.drawText(rowElement->duration, 2, 0, width - 4, height, juce::Justification::centredLeft);
-        }
-        
     }
+    else
+    {
+        //    from: https://docs.juce.com/master/tutorial_table_list_box.html
+            if (auto *rowElement = tracks[rowNumber])
+            {
+                if (columnId == 1)
+                {
+                    g.drawText(rowElement->filename, 2, 0, width - 4, height, juce::Justification::centredLeft);
+                }
+                else if (columnId == 2)
+                {
+                    g.drawText(rowElement->duration, 2, 0, width - 4, height, juce::Justification::centredLeft);
+                }
+                
+            }
+    }
+
     
 }
 
@@ -161,5 +187,23 @@ void PlaylistComponent::filesDropped (const juce::StringArray &files, int x, int
 
 void PlaylistComponent::changeListenerCallback(juce::ChangeBroadcaster* source)
 {
-    std::cout << "laylistComponent::changeListenerCallback Something trig: " << std::endl;
+    
+    if (source == &search)
+    {
+        searchTracks(search.getKeyword());
+    }
+}
+
+void PlaylistComponent::searchTracks(juce::String keyword)
+{
+    searchResults.clear();
+    for (auto& t : tracks)
+    {
+        if (t->filename.contains(keyword))
+        {
+            searchResults.push_back(t);
+            
+        }
+    }
+    tableComponent.updateContent();
 }
