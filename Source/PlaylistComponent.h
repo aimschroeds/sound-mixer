@@ -23,7 +23,8 @@ class PlaylistComponent  : public juce::Component,
                         public juce::TableListBoxModel,
                         public juce::Button::Listener,
                         public juce::FileDragAndDropTarget,
-                        public::juce::ChangeListener, public::juce::ChangeBroadcaster
+                        public::juce::ChangeListener, public::juce::ChangeBroadcaster,
+                        public::juce::DragAndDropContainer
 {
 public:
     PlaylistComponent();
@@ -46,6 +47,7 @@ public:
     void filesDropped (const juce::StringArray &files, int x, int y) override;
     
     void changeListenerCallback(juce::ChangeBroadcaster* source) override;
+    juce::var getDragSourceDescription(const juce::SparseSet< int > &currentlySelectedRows) override;
     
 private:
     juce::TableListBox tableComponent;

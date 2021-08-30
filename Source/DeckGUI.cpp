@@ -245,6 +245,7 @@ void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y)
     for (juce::String filename : files)
     {
         player->loadURL(juce::URL{juce::File{files[0]}});
+        // TO DO: Does Waveform load?
     }
 }
 
@@ -277,4 +278,21 @@ void DeckGUI::instructPlayer(juce::Slider* slider)
         player->stop();
     }
     
+}
+
+
+bool DeckGUI::isInterestedInDragSource (const juce::DragAndDropTarget::SourceDetails &dragSourceDetails)
+{
+    std::cout << "DeckGUI::isInterestedInDragSource: " << std::endl;
+    
+    return true;
+}
+
+
+void DeckGUI::itemDropped(const juce::DragAndDropTarget::SourceDetails &dragSourceDetails)
+{
+
+    std::cout << "DeckGUI::itemDropped" << dragSourceDetails.description.toString() << std::endl;
+    player->loadURL(juce::URL{dragSourceDetails.description});
+    waveformDisplay.loadURL(juce::URL{dragSourceDetails.description});
 }

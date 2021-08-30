@@ -207,3 +207,17 @@ void PlaylistComponent::searchTracks(juce::String keyword)
     }
     tableComponent.updateContent();
 }
+
+
+juce::var PlaylistComponent::getDragSourceDescription(const juce::SparseSet<int> &currentlySelectedRows)
+{
+    std::cout << "PlaylistComponent::getDragSourceDescription" << currentlySelectedRows[0] << std::endl;
+    if (searchResults.empty())
+    {
+        return tracks[currentlySelectedRows[0]]->trackUrl.toString(false);
+    }
+    else
+    {
+        return searchResults[currentlySelectedRows[0]]->trackUrl.toString(false);
+    }
+}

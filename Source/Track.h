@@ -21,6 +21,7 @@ class Track
         juce::String filename;
         char duration[6];
         juce::URL trackUrl;
+        
     private:
         void setDuration();
 };
